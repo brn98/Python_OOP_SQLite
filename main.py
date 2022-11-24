@@ -19,6 +19,6 @@ db = Database()
 pessoaDAO = PessoaDAO(db.conexao, db.cursor)
 
 #quero carregar uma lista com o retorno do banco
-pessoas = pessoaDAO.getAll()
+pessoas = pessoaDAO.getAll(orderBy=True)
 for pessoa in pessoas:
   print(pessoa)

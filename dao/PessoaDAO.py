@@ -8,8 +8,10 @@ class PessoaDAO:
     self.conexao = con
     self.cursor = cur
 
-  def getAll(self, orderByNome = True):
+  def getAll(self, orderBy = False):
     sql = "SELECT id, nome FROM pessoa "
+    if orderBy == True: 
+      sql = sql + "ORDER BY nome"
 
     try:
       self.cursor.execute(sql)
@@ -23,3 +25,14 @@ class PessoaDAO:
       return pessoas
     except Exception as e:
       return e
+
+    #Função/método para inserir no banco.
+  def save(self, pessoa):
+    sql = "INSERT INTO pessoa (nome) VALUES (%s)"
+
+    try:
+      self.cursor.execute(sql, pessoa.nome)
+      pessoa.id = self.cursor.lastrowid 
+      return pessoa
+    except Exception as e:
+      return e        
